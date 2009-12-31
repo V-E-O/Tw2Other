@@ -6,7 +6,7 @@
  */
 
 
-class Digu implements IService {
+class Zuosa implements IService {
 	
 	private $username;
 	
@@ -14,15 +14,9 @@ class Digu implements IService {
 	
 	private $content;
 	
-	const Digu_API = 'http://api.minicloud.com.cn/statuses/update.xml';
+	const Zuosa_API = 'http://api.zuosa.com/statuses/update.xml';
 	
-	const CookieFile = '/cookies/digu';
-	
-	/**
-	 * 
-	 */
 	function __construct() {
-		
 		$this->username = $this->password = null;
 		$this->content = null;
 	}
@@ -65,7 +59,7 @@ class Digu implements IService {
 	public function update() {
 		$this->sendContent ();
 		
-		echo ' Update digu success !';
+		echo ' Update Zuosa success !';
 	}
 	
 	private function sendContent() {
@@ -90,39 +84,25 @@ class Digu implements IService {
 		}
 		
 		$post = array ();
-		if (defined ( 'SOURCE' )) {
-			$post ['source'] = SOURCE;
-		}
 		
-		$post ['content'] = urlencode ( $content );
+		$post ['status'] = urlencode ( $content );
 		
 		$curlOptions = array ();
 		
 		$curlOptions [CURLOPT_USERPWD] = "{$this->username}:{$this->password}";
-		$curlOptions [CURLOPT_URL] = self::Digu_API;
+		$curlOptions [CURLOPT_URL] = self::Zuosa_API;
 		$curlOptions [CURLOPT_POST] = true;
 		$curlOptions [CURLOPT_POSTFIELDS] = createKeyString ( $post );
 		$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
 		$curlOptions [CURLOPT_RETURNTRANSFER] = true;
 		
-		
 		//$curlOptions [CURLOPT_FOLLOWLOCATION] = true;
-		//$curlOptions [CURLOPT_COOKIEJAR] = self::CookieFile;
-		//$curlOptions [CURLOPT_COOKIEFILE] = self::CookieFile;
 		
-		
+
 		$curlHandler = curl_init ();
 		curl_setopt_array ( $curlHandler, $curlOptions );
 		curl_exec ( $curlHandler );
 		curl_close ( $curlHandler );
-	}
-	
-	/**
-	 * 
-	 */
-	function __destruct() {
-		
-	//TODO - Insert your code here
 	}
 }
 

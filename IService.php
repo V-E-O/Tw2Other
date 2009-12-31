@@ -1,11 +1,11 @@
 <?php
-
-
 /**
  * @author cluries
  * @link http://intgu.com
  * @version 0.1
  */
+
+
 interface IService {
 	
 	public function update();

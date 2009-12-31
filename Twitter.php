@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author cluries
+ * @link http://intgu.com
+ * @version 0.1
+ */
+
 
 class Twitter {
 	
@@ -60,7 +66,7 @@ class Twitter {
 		if (trim ( $since_id ) != '') {
 			$api .= '&since_id=' . $since_id;
 		}
-		
+ 
 		return $api;
 	}
 	

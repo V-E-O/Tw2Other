@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author cluries
+ * @link http://intgu.com
+ * @version 0.1
+ */
+
 
 define ( 'SOURCE', '<a href="http://intgu.com/page/twto/">Twto</a>' );
 
@@ -50,7 +56,7 @@ function is_go() {
 	$lastTime = file_get_contents ( 'update.time' );
 	
 	if (! defined ( 'INTERVAL' )) {
-		define ( 'INTERVAL', 5 * 60 );
+		define ( 'INTERVAL', 240 );
 	}
 	
 	if (trim ( $lastTime ) + INTERVAL < time ()) {
