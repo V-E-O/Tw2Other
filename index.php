@@ -26,8 +26,6 @@ $content = $twitter->getContent ();
 
 foreach ( $services as $k => $v ) {
 	
-	echo $k;
-	continue;
 	$service = ucfirst ( $k );
 	$service = new $service ( );
 	$service->setUsername ( $v ['username'] );
