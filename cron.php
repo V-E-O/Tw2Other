@@ -1,7 +1,16 @@
 <?php
-$url = "http://intgu.com/tw2other/index.php";
+$url = "";
+//±ÈÈç$url = "http://intgu.com/tw2other/index.php";
+
+if (empty ( $url )) {
+	exit ( 'ÇëÏÈÅäÖÃcron.php' );
+}
 
 $curlHandler = curl_init ( $url );
+
+if (isset ( $_GET ['echo'] )) {
+	curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, true );
+}
 
 curl_exec ( $curlHandler );
 curl_close ( $curlHandler );

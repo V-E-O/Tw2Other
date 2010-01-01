@@ -26,6 +26,14 @@ $content = $twitter->getContent ();
 
 foreach ( $services as $k => $v ) {
 	
+	if (trim ( $k ) == '') {
+		continue;
+	}
+	
+	if (trim ( $v ['username'] ) == '' || trim ( $v ['password'] ) == '') {
+		continue;
+	}
+	
 	$service = ucfirst ( $k );
 	$service = new $service ( );
 	$service->setUsername ( $v ['username'] );
@@ -33,6 +41,5 @@ foreach ( $services as $k => $v ) {
 	$service->setContent ( $content );
 	$service->update ();
 }
-
 
 ?>

@@ -3,7 +3,7 @@ if (! defined ( 'TWTO_VERSION' )) {
 	exit ();
 }
 
-define ( 'INTERVAL', 60 );
+define ( 'INTERVAL', 50 );
 
 $twitterApi = 'http://twitter.com/';
 
