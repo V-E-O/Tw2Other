@@ -61,8 +61,6 @@ class Digu implements IService {
 	 */
 	public function update() {
 		$this->sendContent ();
-		
-		echo ' Update digu success !';
 	}
 	
 	private function sendContent() {
@@ -99,7 +97,7 @@ class Digu implements IService {
 		$curlOptions [CURLOPT_URL] = self::Digu_API;
 		$curlOptions [CURLOPT_POST] = true;
 		$curlOptions [CURLOPT_POSTFIELDS] = createKeyString ( $post );
-		$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
+		//$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
 		$curlOptions [CURLOPT_RETURNTRANSFER] = true;
 		
 		$curlHandler = curl_init ();

@@ -58,8 +58,6 @@ class Zuosa implements IService {
 	 */
 	public function update() {
 		$this->sendContent ();
-		
-		echo ' Update Zuosa success !';
 	}
 	
 	private function sendContent() {
@@ -93,7 +91,7 @@ class Zuosa implements IService {
 		$curlOptions [CURLOPT_URL] = self::Zuosa_API;
 		$curlOptions [CURLOPT_POST] = true;
 		$curlOptions [CURLOPT_POSTFIELDS] = createKeyString ( $post );
-		$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
+		//$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
 		$curlOptions [CURLOPT_RETURNTRANSFER] = true;
 		
 		//$curlOptions [CURLOPT_FOLLOWLOCATION] = true;

@@ -43,7 +43,6 @@ class Sina implements IService {
 	public function update() {
 		
 		$this->sendContent ();
-		echo ' Update sina success !';
 	}
 	
 	private function sendContent() {
