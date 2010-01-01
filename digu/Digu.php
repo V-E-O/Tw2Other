@@ -5,7 +5,6 @@
  * @version 0.1
  */
 
-
 class Digu implements IService {
 	
 	private $username;
@@ -15,8 +14,6 @@ class Digu implements IService {
 	private $content;
 	
 	const Digu_API = 'http://api.minicloud.com.cn/statuses/update.xml';
-	
-	const CookieFile = '/cookies/digu';
 	
 	/**
 	 * 
@@ -104,12 +101,6 @@ class Digu implements IService {
 		$curlOptions [CURLOPT_POSTFIELDS] = createKeyString ( $post );
 		$curlOptions [CURLOPT_HEADERFUNCTION] = 'duplicateHeader';
 		$curlOptions [CURLOPT_RETURNTRANSFER] = true;
-		
-		
-		//$curlOptions [CURLOPT_FOLLOWLOCATION] = true;
-		//$curlOptions [CURLOPT_COOKIEJAR] = self::CookieFile;
-		//$curlOptions [CURLOPT_COOKIEFILE] = self::CookieFile;
-		
 		
 		$curlHandler = curl_init ();
 		curl_setopt_array ( $curlHandler, $curlOptions );

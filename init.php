@@ -5,12 +5,7 @@
  * @version 0.1
  */
 
-
 define ( 'SOURCE', '<a href="http://intgu.com/page/twto/">Twto</a>' );
-
-is_go ();
-
-updateLastUpdateTime ();
 
 function defaultExceptionHandler(TwtoException $e) {
 	echo $e->getMessage ();
@@ -48,7 +43,21 @@ function __autoload($className = '') {
 	}
 }
 
-function is_go() {
+function checkConfigFile() {
+	global $twitterApi;
+	global $twitterUser;
+	global $services;
+	
+	if (empty ( $twitterApi ) || empty ( $twitterUser ) || ! is_array ( $services )) {
+		echo "<h1>请先配置config.php</h1>";
+		exit ();
+	}
+}
+
+function is_continue() {
+	
+	checkConfigFile ();
+	
 	if (! file_exists ( 'update.time' )) {
 		return;
 	}

@@ -5,13 +5,15 @@
  * @version 0.1
  */
 
-
 define ( 'TWTO_VERSION', 0.1 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
 include 'config.php';
 include 'init.php';
+
+is_continue ();
+updateLastUpdateTime ();
 
 include 'IService.php';
 include 'Twitter.php';
@@ -24,6 +26,8 @@ $content = $twitter->getContent ();
 
 foreach ( $services as $k => $v ) {
 	
+	echo $k;
+	continue;
 	$service = ucfirst ( $k );
 	$service = new $service ( );
 	$service->setUsername ( $v ['username'] );
@@ -31,6 +35,5 @@ foreach ( $services as $k => $v ) {
 	$service->setContent ( $content );
 	$service->update ();
 }
-
 
 ?>
