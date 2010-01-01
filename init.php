@@ -65,7 +65,7 @@ function is_continue() {
 	$lastTime = file_get_contents ( 'update.time' );
 	
 	if (! defined ( 'INTERVAL' )) {
-		define ( 'INTERVAL', 240 );
+		define ( 'INTERVAL', 60 );
 	}
 	
 	if (trim ( $lastTime ) + INTERVAL < time ()) {
