@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author cluries
+ * @link http://intgu.com
+ * @version 0.1
+ */
+ 
+ 
 $url = "";
 //±ÈÈç$url = "http://intgu.com/tw2other/index.php";
 
