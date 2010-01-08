@@ -2,7 +2,7 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.2
+ * @version 0.21
  */
 
 class Twitter {
@@ -77,7 +77,18 @@ class Twitter {
 	 * @return string or array
 	 */
 	public function getContent() {
-		$json = file_get_contents ( $this->getTwitterAPI () );
+		//$json = file_get_contents ( $this->getTwitterAPI () );
+	
+		$json = '';
+		if (get_cfg_var ( 'allow_url_fopen' )) {
+			$json = file_get_contents ( $this->getTwitterAPI () );
+		} else {
+			$curlHander = curl_init ( $this->getTwitterAPI () );
+			curl_setopt ( $curlHander, CURLOPT_RETURNTRANSFER, true );
+			$json = curl_exec ( $curlHander );
+			curl_close ( $curlHander );
+		}
+		
 		$json = json_decode ( $json, true );
 		if (! isset ( $json [0] ['id'] )) {
 			$this->noupdate ();
