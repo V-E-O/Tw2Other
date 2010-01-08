@@ -4,13 +4,11 @@
  * @link http://intgu.com
  * @version 0.1
  */
- 
- 
+
 $url = "";
-//±ÈÈç$url = "http://intgu.com/tw2other/index.php";
 
 if (empty ( $url )) {
-	exit ( 'ÇëÏÈÅäÖÃcron.php' );
+	exit ( 'è¯·å…ˆé…ç½®cron.php' );
 }
 
 $curlHandler = curl_init ( $url );

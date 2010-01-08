@@ -21,6 +21,7 @@ include 'Twitter.php';
 $twitter = new Twitter ( );
 $twitter->setApi ( $twitterApi );
 $twitter->setUser ( $twitterUser );
+$twitter->setSyncLevel ( $twitterSyncLevel );
 
 $content = $twitter->getContent ();
 
