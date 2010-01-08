@@ -2,10 +2,10 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.2
+ * @version 0.21
  */
 
-define ( 'TWTO_VERSION', 0.2 );
+define ( 'TWTO_VERSION', 0.21 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
