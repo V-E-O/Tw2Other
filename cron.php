@@ -2,10 +2,12 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.1
+ * @version 0.3
  */
 
 $url = "";
+//比如$url = "http://intgu.com/tw2other/index.php";
+//这里一定要填写正确的地址
 
 if (empty ( $url )) {
 	exit ( '请先配置cron.php' );

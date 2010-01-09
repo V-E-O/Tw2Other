@@ -2,10 +2,10 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.22
+ * @version 0.3
  */
 
-define ( 'TWTO_VERSION', 0.22 );
+define ( 'TWTO_VERSION', 0.3 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
@@ -15,7 +15,7 @@ include 'init.php';
 is_continue ();
 updateLastUpdateTime ();
 
-include 'IService.php';
+include 'Service.php';
 include 'Twitter.php';
 
 $twitter = new Twitter ( );

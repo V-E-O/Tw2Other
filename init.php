@@ -2,10 +2,10 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.1
+ * @version 0.3
  */
 
-define ( 'SOURCE', '<a href="http://intgu.com/page/twto/">Twto</a>' );
+define ( 'SOURCE', '<a href="http://intgu.com/">Tw2ohter</a>' );
 
 function defaultExceptionHandler(TwtoException $e) {
 	echo $e->getMessage ();

@@ -2,82 +2,45 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.1
+ * @version 0.3
  */
 
-class Sina implements IService {
-	
-	private $username;
-	
-	private $password;
-	
-	private $content;
-	
-	const Sina_URL = 'https://login.sina.com.cn/sso/login.php';
-	
-	const Sina_COOKIE_DIR = 'cookies';
+class Sina extends Service {
 	
 	function __construct() {
-		$this->username = $this->password = null;
-		$this->content = null;
+		parent::__construct ();
 	}
 	
-	public function setPassword($pwd) {
-		
-		$this->password = trim ( $pwd );
+	/**
+	 * get sina login url
+	 *
+	 * @return string
+	 */
+	private function getLoginUrl() {
+		$loginUrl = 'https://login.sina.com.cn/sso/login.php';
+		return $loginUrl . "?username={$this->username}&password={$this->password}&returntype=TEXT";
 	}
 	
-	public function setUsername($user) {
-		
-		$this->username = trim ( $user );
-	}
-	
-	public function setContent($content) {
+ 
+	/**
+	 * override sendItem
+	 *
+	 * @param string $content
+	 */
+	protected function sendItem($content) {
 		if (empty ( $content )) {
 			return;
 		}
 		
-		$this->content = $content;
-	}
-	
-	public function update() {
-		
-		$this->sendContent ();
-	}
-	
-	private function sendContent() {
-		if (empty ( $this->content )) {
-			return;
-		}
-		
-		if (is_array ( $this->content )) {
-			foreach ( $this->content as $value ) {
-				$this->sendItem ( $value );
-			}
-			return;
-		}
-		
-		$this->sendItem ( $this->content );
-	
-	}
-	
-	private function sendItem($content) {
-		if (empty ( $content )) {
-			return;
-		}
-		
-		$cookieFile = tempnam ( self::Sina_COOKIE_DIR, 'sina.cookie' );
+		$cookieFile = tempnam ( Service::COOKIE_DIR, 'sina.cookie' );
 		
 		$content = urlencode ( $content );
 		
-		$loginUrl = self::Sina_URL . "?username={$this->username}&password={$this->password}&returntype=TEXT";
-		
-		$loginCurlHandler = curl_init ( $loginUrl );
+		$loginCurlHandler = curl_init ( $this->getLoginUrl () );
 		curl_setopt ( $loginCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
 		
 		curl_setopt ( $loginCurlHandler, CURLOPT_HEADER, 0 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_TIMEOUT, 10 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, true );
 		curl_exec ( $loginCurlHandler );
@@ -89,7 +52,6 @@ class Sina implements IService {
 		curl_setopt ( $curlHandler, CURLOPT_REFERER, "http://t.sina.com.cn" );
 		curl_setopt ( $curlHandler, CURLOPT_POST, 1 );
 		curl_setopt ( $curlHandler, CURLOPT_POSTFIELDS, "content=" . $content );
-		curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $curlHandler, CURLOPT_COOKIEFILE, $cookieFile );
 		curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, true );
 		curl_exec ( $curlHandler );
@@ -98,8 +60,8 @@ class Sina implements IService {
 		if (file_exists ( $cookieFile )) {
 			unlink ( $cookieFile );
 		}
-	
 	}
+
 }
 
 ?>
