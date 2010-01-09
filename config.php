@@ -22,6 +22,8 @@ $services = array ("sina" => array ('username' => 'your_username', 'password' =>
 					"digu" => array ('username' => 'your_username', 'password' => 'your_password' ),
 					"zuosa" => array ('username' => 'your_username', 'password' => 'your_password' ), 
 					"follow5" => array ('username' => 'your_username', 'password' => 'your_password' ), 
+					
+					/*T9911就是9911.com*/ "T9911" => array ('username' => 'your_username', 'password' => 'your_password' ), 
 					 );
 
 ?>
