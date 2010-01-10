@@ -2,7 +2,7 @@
 
 关于Tw2other:
 
-一个用PHP编写的同步tweets到国内其他微博的小程序。暂时只支持digu/sina/zuosa/follow5/9911。后面考虑会加入其他的微博支持。
+一个用PHP编写的同步tweets到国内其他微博的小程序。暂时只支持digu/sina/zuosa/follow5/9911/豆瓣广播。后面考虑会加入其他的微博支持。
 
 受用方法：在任何地方支持php的虚拟主机一个（最好支持Cron的，而且服务器所在地最好在国外，国内也行，不过需要提供一个twitter api，国外空间则不需要）上传Tw2other，配置好config.php中你的twitter帐号和需要同步的服务中的账号和密码，还有如果需要使用Cron来激活同步的需要配置cron.php中的URL参数。
 
