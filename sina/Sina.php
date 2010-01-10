@@ -21,20 +21,13 @@ class Sina extends Service {
 		return $loginUrl . "?username={$this->username}&password={$this->password}&returntype=TEXT";
 	}
 	
- 
 	/**
-	 * override sendItem
+	 * login
 	 *
-	 * @param string $content
+	 * @return unknown
 	 */
-	protected function sendItem($content) {
-		if (empty ( $content )) {
-			return;
-		}
-		
+	private function login() {
 		$cookieFile = tempnam ( Service::COOKIE_DIR, 'sina.cookie' );
-		
-		$content = urlencode ( $content );
 		
 		$loginCurlHandler = curl_init ( $this->getLoginUrl () );
 		curl_setopt ( $loginCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
@@ -45,7 +38,43 @@ class Sina extends Service {
 		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, true );
 		curl_exec ( $loginCurlHandler );
 		curl_close ( $loginCurlHandler );
-		unset ( $loginCurlHandler );
+		
+		return $cookieFile;
+	}
+	
+	/**
+	 * send content
+	 *
+	 */
+	protected function sendContent() {
+		if (empty ( $this->content )) {
+			return;
+		}
+		
+		$cookieFile = $this->login ();
+		
+		if (is_array ( $this->content )) {
+			foreach ( $this->content as $value ) {
+				$this->sendItem ( $value, $cookieFile );
+			}
+		} else {
+			$this->sendItem ( $this->content, $cookieFile );
+		}
+		
+		if (file_exists ( $cookieFile )) {
+			unlink ( $cookieFile );
+		}
+	}
+	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown_type $content
+	 * @param unknown_type $cookieFile
+	 */
+	protected function sendItem($content, $cookieFile) {
+		
+		$content = urlencode($content);
 		
 		$curlHandler = curl_init ();
 		curl_setopt ( $curlHandler, CURLOPT_URL, "http://t.sina.com.cn/mblog/publish.php" );
@@ -56,10 +85,6 @@ class Sina extends Service {
 		curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, true );
 		curl_exec ( $curlHandler );
 		curl_close ( $curlHandler );
-		
-		if (file_exists ( $cookieFile )) {
-			unlink ( $cookieFile );
-		}
 	}
 
 }
