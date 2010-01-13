@@ -7,7 +7,8 @@ define ( 'INTERVAL', 50 );
 
 $twitterApi = 'http://twitter.com/';
 
-$twitterUser = 'cluries';
+//你的twitter用户名
+$twitterUser = '';
 
 /**
  * 0：不过滤
@@ -18,12 +19,13 @@ $twitterUser = 'cluries';
  */
 $twitterSyncLevel = 0;
 
-$services = array ("sina" => array ('username' => 'your_username', 'password' => 'your_password' ), 
+$services = array ("sina" => array ('username' => 'your_email', 'password' => 'your_password' ), 
 					"digu" => array ('username' => 'your_username', 'password' => 'your_password' ),
 					"zuosa" => array ('username' => 'your_username', 'password' => 'your_password' ), 
 					"follow5" => array ('username' => 'your_username', 'password' => 'your_password' ), 
-					"douban" => array ('username' => 'your_username', 'password' => 'your_password' ), 
-					/*T9911就是9911.com*/ "T9911" => array ('username' => 'your_username', 'password' => 'your_password' ), 
+					"douban" => array ('username' => 'your_email', 'password' => 'your_password' ), 
+					"xianguo" => array ('username' => 'your_email', 'password' => 'your_password' ),
+/*T9911就是9911.com*/ "T9911" => array ('username' => 'your_username', 'password' => 'your_password' ), 
 					 );
 
 ?>
