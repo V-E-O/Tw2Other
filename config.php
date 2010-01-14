@@ -28,14 +28,17 @@ $twitterSyncLevel = 0;
  */
 $follow5ApiKey = '';
 
-
-$services = array ("sina" => array ('username' => 'your_email', 'password' => 'your_password' ), 
-					"digu" => array ('username' => 'your_username', 'password' => 'your_password' ),
-					"zuosa" => array ('username' => 'your_username', 'password' => 'your_password' ), 
-					"follow5" => array ('username' => 'your_username', 'password' => 'your_password' ), 
-					"douban" => array ('username' => 'your_email', 'password' => 'your_password' ), 
-					"xianguo" => array ('username' => 'your_email', 'password' => 'your_password' ),
-/*T9911就是9911.com*/ "T9911" => array ('username' => 'your_username', 'password' => 'your_password' ), 
+//username对应登录名
+//password对应登录密码
+$services = array ("sina" => array ('username' => 'your_email', 'password' => '' ), 
+					"digu" => array ('username' => 'your_username', 'password' => '' ),
+					"zuosa" => array ('username' => 'your_username', 'password' => '' ), 
+					"follow5" => array ('username' => 'your_username', 'password' => '' ),
+					"renjian" => array ('username' => 'your_username', 'password' => '' ),
+					"douban" => array ('username' => 'your_email', 'password' => '' ), 
+					"xianguo" => array ('username' => 'your_email', 'password' => '' ),
+/*T9911就是9911.com*/ "t9911" => array ('username' => 'your_username', 'password' => '' ), 
+					"renren" => array ('username' => 'your_email', 'password' => '' ),
 					 );
 
 ?>

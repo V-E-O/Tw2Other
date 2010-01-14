@@ -5,7 +5,7 @@
  * @version 0.1
  */
 
-class Xianguo extends Service {
+class Renren extends Service {
 	
 	function __construct() {
 		parent::__construct ();
@@ -17,40 +17,44 @@ class Xianguo extends Service {
 	 * @return unknown
 	 */
 	private function login() {
-		$cookieFile = tempnam ( Service::COOKIE_DIR, 'xianguo.cookie' );
+		$cookieFile = tempnam ( Service::COOKIE_DIR, 'renren.cookie' );
 		
 		$loginInfo = array ();
-		$loginInfo ['rurl'] = '';
-		$loginInfo ['code'] = '';
+		
 		$loginInfo ['email'] = $this->username;
 		$loginInfo ['password'] = $this->password;
+		$loginInfo ['autoLogin'] = 'true';
 		
-		$loginCurlHandler = curl_init ( "http://bo.xianguo.com/login" );
+		$loginCurlHandler = curl_init ( "http://passport.renren.com/PLogin.do" );
 		curl_setopt ( $loginCurlHandler, CURLOPT_POST, 1 );
-		curl_setopt ( $loginCurlHandler, CURLOPT_REFERER, "http://bo.xianguo.com/login" );
+		curl_setopt ( $loginCurlHandler, CURLOPT_REFERER, "http://passport.renren.com/PLogin.do" );
 		curl_setopt ( $loginCurlHandler, CURLOPT_POSTFIELDS, createKeyString ( $loginInfo ) );
 		curl_setopt ( $loginCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
 		curl_setopt ( $loginCurlHandler, CURLOPT_HEADER, 0 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_SSL_VERIFYPEER, false );
 		curl_setopt ( $loginCurlHandler, CURLOPT_TIMEOUT, 10 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, true );
-		curl_exec ( $loginCurlHandler );
+		$t = curl_exec ( $loginCurlHandler );
 		curl_close ( $loginCurlHandler );
 		
-		return $cookieFile;
+		$t = trim ( $t );
+		$r = array ();
+		preg_match ( '/<a href="https?:\/\/.*\/(callback.do\?.*)">/i', $t, $r );
+		
+		$result = array ();
+		$result ['cookieFile'] = $cookieFile;
+		$result ['url'] = trim ( $r [1] );
+		return $result;
 	}
 	
-	private function toIndex($cookieFile) {
-		
-		$indexCurlHandler = curl_init ( "http://bo.xianguo.com/home" );
-		curl_setopt ( $indexCurlHandler, CURLOPT_REFERER, '	http://bo.xianguo.com/login?rurl=%2F' );
+	private function goHome($cookieFile, $url) {
+		$indexCurlHandler = curl_init ( "http://www.renren.com/{$url}" );
 		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
 		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEFILE, $cookieFile );
 		curl_setopt ( $indexCurlHandler, CURLOPT_RETURNTRANSFER, true );
 		curl_exec ( $indexCurlHandler );
 		curl_close ( $indexCurlHandler );
 		unset ( $indexCurlHandler );
-	
 	}
 	
 	protected function sendContent() {
@@ -59,8 +63,9 @@ class Xianguo extends Service {
 			return;
 		}
 		
-		$cookieFile = $this->login ();
-		//$this->toIndex ( $cookieFile );
+		$result = $this->login ();
+		$cookieFile = $result ['cookieFile'];
+		$this->goHome ( $cookieFile, $result ['url'] );
 		
 		if (is_array ( $this->content )) {
 			foreach ( $this->content as $value ) {
@@ -77,11 +82,12 @@ class Xianguo extends Service {
 	
 	protected function sendItem($content, $cookieFile) {
 		$content = urlencode ( $content );
-		$post = array ('content' => $content, 'picture' => '', 'render' => '0', 'topic' => '' );
+		$post = array ('c' => $content, 'isAtHome' => '1', 'raw' => $content );
 		
 		$curlHandler = curl_init ();
-		curl_setopt ( $curlHandler, CURLOPT_URL, "http://bo.xianguo.com/doings/add" );
-		curl_setopt ( $curlHandler, CURLOPT_REFERER, "http://bo.xianguo.com/home" );
+		curl_setopt ( $curlHandler, CURLOPT_URL, "http://status.renren.com/doing/update.do" );
+		curl_setopt ( $curlHandler, CURLOPT_REFERER, "http://www.renren.com/Home.do" );
+		curl_setopt ( $curlHandler, CURLOPT_FOLLOWLOCATION, TRUE );
 		curl_setopt ( $curlHandler, CURLOPT_POST, 1 );
 		curl_setopt ( $curlHandler, CURLOPT_POSTFIELDS, createKeyString ( $post ) );
 		curl_setopt ( $curlHandler, CURLOPT_COOKIEFILE, $cookieFile );

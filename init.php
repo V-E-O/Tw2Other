@@ -73,7 +73,7 @@ function is_continue() {
 		define ( 'INTERVAL', 50 );
 	}
 	
-	if (trim ( $lastTime ) + INTERVAL < time ()) {
+	if (trim ( $lastTime ) + INTERVAL < time ()-1) {
 		return;
 	}
 	
