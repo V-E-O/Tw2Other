@@ -44,6 +44,7 @@ function __autoload($className = '') {
 }
 
 function checkConfigFile() {
+	
 	global $twitterApi;
 	global $twitterUser;
 	global $services;
@@ -55,6 +56,10 @@ function checkConfigFile() {
 }
 
 function is_continue() {
+	
+	if (! function_exists ( 'curl_init' )) {
+		exit ( '环境不支持CURL' );
+	}
 	
 	checkConfigFile ();
 	

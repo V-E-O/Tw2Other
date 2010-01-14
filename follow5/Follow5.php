@@ -2,7 +2,7 @@
 /**
  * @author cluries
  * @link http://intgu.com
- * @version 0.3
+ * @version 0.4
  */
 
 class Follow5 extends Service {
@@ -10,8 +10,18 @@ class Follow5 extends Service {
 	function __construct() {
 		parent::__construct ();
 		
+		global $follow5ApiKey;
+		
 		$this->updateUrl = 'http://api.follow5.com/api/statuses/update.xml';
-		$this->addPostData ( 'api_key', 'BB15BAEA943955C56FB6CA4A30754ED8' );
+		$this->addPostData ( 'api_key', trim ( $follow5ApiKey ) );
+	}
+	
+	protected function sendContent() {
+		if (strlen ( $this->_post_data ['api_key'] ) != 32) {
+			return;
+		}
+		
+		parent::sendContent ();
 	}
 }
 

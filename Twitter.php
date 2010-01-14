@@ -78,7 +78,8 @@ class Twitter {
 	 */
 	public function getContent() {
 		//$json = file_get_contents ( $this->getTwitterAPI () );
-	
+		
+
 		$json = '';
 		if (get_cfg_var ( 'allow_url_fopen' )) {
 			$json = file_get_contents ( $this->getTwitterAPI () );
@@ -236,8 +237,10 @@ class Twitter {
 	 * @param string  $id
 	 */
 	private function writeTweetId($id) {
-		$fileHandler = @fopen ( 'tweet.id', 'w+' );
-		@fwrite ( $fileHandler, $id );
+		$fileHandler = fopen ( 'tweet.id', 'w+' );
+		if (! fwrite ( $fileHandler, $id )) {
+			exit ( '请设置tw2other所在的目录可写' );
+		}
 		@fclose ( $fileHandler );
 	}
 	
