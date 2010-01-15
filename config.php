@@ -24,7 +24,7 @@ $twitterSyncLevel = 0;
  * 如果不同步到follow5，就不用填写
  * 获取follow5 api_key的办法见follow5主页
  * 关于为什么不公开提供api_key
- * 详见：http://intgu.com/post/now-the-follow5-model-in-tw2other-is-not-public.html
+ * 详见：http://cuies.com/post/now-the-follow5-model-in-tw2other-is-not-public.html
  */
 $follow5ApiKey = '';
 

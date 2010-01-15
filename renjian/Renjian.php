@@ -1,7 +1,7 @@
 <?php
 /**
  * @author cluries
- * @link http://intgu.com
+ * @link http://cuies.com
  * @version 0.1
  * 
  */

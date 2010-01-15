@@ -2,7 +2,7 @@
 
 升级版本的时候，请直接覆盖，不要删除以前目录下的tweet.id文件（非常重要），否者会导致重复同步的倒霉事情发生。
 
-由于有的推油们没有正确设置，导致大量的重复信息发送，导致follow5的api_key被封掉。所以现在follow5模块中不再公开提供api_key,如果有需求，请联系我索取并注意保密。具体请见：http://intgu.com/post/now-the-follow5-model-in-tw2other-is-not-public.html 
+由于有的推油们没有正确设置，导致大量的重复信息发送，导致follow5的api_key被封掉。所以现在follow5模块中不再公开提供api_key,如果有需求，请联系我索取并注意保密。具体请见：http://cuies.com/post/now-the-follow5-model-in-tw2other-is-not-public.html 
 
 
 关于Tw2other:
@@ -22,6 +22,6 @@
 
 提示：嘀咕对推的关键字过滤比较严重，所以含有某些关键字的tweet同步到嘀咕的时候可能会被河蟹。
 
-有问题可以再我的博客留言：http://intgu.com
+有问题可以再我的博客留言：http://cuies.com
 
 或者在twitter上follow我 ：http://twitter.com/cluries

@@ -1,11 +1,11 @@
 <?php
 /**
  * @author cluries
- * @link http://intgu.com
- * @version 0.6
+ * @link http://cuies.com
+ * @version 0.61
  */
 
-define ( 'TWTO_VERSION', 0.6 );
+define ( 'TWTO_VERSION', 0.61 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 

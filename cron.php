@@ -1,12 +1,12 @@
 <?php
 /**
  * @author cluries
- * @link http://intgu.com
+ * @link http://cuies.com
  * @version 0.3
  */
 
 $url = "";
-//比如$url = "http://intgu.com/tw2other/index.php";
+//比如$url = "http://cuies.com/tw2other/index.php";
 //这里一定要填写正确的地址
 
 if (empty ( $url )) {

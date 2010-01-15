@@ -1,11 +1,11 @@
 <?php
 /**
  * @author cluries
- * @link http://intgu.com
+ * @link http://cuies.com
  * @version 0.3
  */
 
-define ( 'SOURCE', '<a href="http://intgu.com/">Tw2ohter</a>' );
+define ( 'SOURCE', '<a href="http://cuies.com/">Tw2ohter</a>' );
 
 function defaultExceptionHandler(TwtoException $e) {
 	echo $e->getMessage ();
