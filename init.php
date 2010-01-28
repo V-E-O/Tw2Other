@@ -5,7 +5,9 @@
  * @version 0.3
  */
 
-define ( 'SOURCE', '<a href="http://cuies.com/">Tw2ohter</a>' );
+//define ( 'SOURCE', '<a href="http://cuies.com/">Tw2ohter</a>' );
+define ( 'SOURCE', 'Tw2ohter' );
+
 
 function defaultExceptionHandler(TwtoException $e) {
 	echo $e->getMessage ();
