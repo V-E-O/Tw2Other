@@ -2,7 +2,7 @@
 /**
  * @author cluries
  * @link http://cuies.com
- * @version 0.1
+ * @version 0.2
  */
 
 class Renren extends Service {
@@ -23,11 +23,12 @@ class Renren extends Service {
 		
 		$loginInfo ['email'] = $this->username;
 		$loginInfo ['password'] = $this->password;
-		$loginInfo ['autoLogin'] = 'true';
+		$loginInfo ['origURL'] = '/home.do';
+		$loginInfo ['login'] = '登录';
 		
-		$loginCurlHandler = curl_init ( "http://passport.renren.com/PLogin.do" );
+		$loginCurlHandler = curl_init ( "http://3g.renren.com/login.do?fx=0&autoLogin=true" );
 		curl_setopt ( $loginCurlHandler, CURLOPT_POST, 1 );
-		curl_setopt ( $loginCurlHandler, CURLOPT_REFERER, "http://passport.renren.com/PLogin.do" );
+		curl_setopt ( $loginCurlHandler, CURLOPT_REFERER, "http://wap.renren.com/" );
 		curl_setopt ( $loginCurlHandler, CURLOPT_POSTFIELDS, createKeyString ( $loginInfo ) );
 		curl_setopt ( $loginCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
 		curl_setopt ( $loginCurlHandler, CURLOPT_HEADER, 0 );
@@ -35,26 +36,33 @@ class Renren extends Service {
 		curl_setopt ( $loginCurlHandler, CURLOPT_TIMEOUT, 10 );
 		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, true );
 		$t = curl_exec ( $loginCurlHandler );
+		
 		curl_close ( $loginCurlHandler );
 		
 		$t = trim ( $t );
 		$r = array ();
-		preg_match ( '/<a href="https?:\/\/.*\/(callback.do\?.*)">/i', $t, $r );
+		preg_match ( '/<a href="(https?:\/\/.*)">/i', $t, $r );
 		
 		$result = array ();
 		$result ['cookieFile'] = $cookieFile;
 		$result ['url'] = trim ( $r [1] );
+		
 		return $result;
 	}
 	
 	private function goHome($cookieFile, $url) {
-		$indexCurlHandler = curl_init ( "http://www.renren.com/{$url}" );
+		$indexCurlHandler = curl_init ( $url );
 		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
 		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEFILE, $cookieFile );
 		curl_setopt ( $indexCurlHandler, CURLOPT_RETURNTRANSFER, true );
-		curl_exec ( $indexCurlHandler );
+		$t = curl_exec ( $indexCurlHandler );
 		curl_close ( $indexCurlHandler );
 		unset ( $indexCurlHandler );
+		
+		$r = array ();
+		preg_match ( '/action="(https?:\/\/.*?)"/i', $t, $r );
+		
+		return $r [1];
 	}
 	
 	protected function sendContent() {
@@ -65,14 +73,14 @@ class Renren extends Service {
 		
 		$result = $this->login ();
 		$cookieFile = $result ['cookieFile'];
-		$this->goHome ( $cookieFile, $result ['url'] );
+		$url = $this->goHome ( $cookieFile, $result ['url'] );
 		
 		if (is_array ( $this->content )) {
 			foreach ( $this->content as $value ) {
-				$this->sendItem ( $value, $cookieFile );
+				$this->sendItem ( $value, $cookieFile, $url );
 			}
 		} else {
-			$this->sendItem ( $this->content, $cookieFile );
+			$this->sendItem ( $this->content, $cookieFile, $url );
 		}
 		
 		if (file_exists ( $cookieFile )) {
@@ -80,13 +88,12 @@ class Renren extends Service {
 		}
 	}
 	
-	protected function sendItem($content, $cookieFile) {
+	protected function sendItem($content, $cookieFile, $url) {
+		$url = urldecode($url);
 		$content = urlencode ( $content );
-		$post = array ('c' => $content, 'isAtHome' => '1', 'raw' => $content );
-		
+		$post = array ('position' => 4, 'sour' => 'home', 'status' => $content, 'update' => '更新' );
 		$curlHandler = curl_init ();
-		curl_setopt ( $curlHandler, CURLOPT_URL, "http://status.renren.com/doing/update.do" );
-		curl_setopt ( $curlHandler, CURLOPT_REFERER, "http://www.renren.com/Home.do" );
+		curl_setopt ( $curlHandler, CURLOPT_URL, $url );
 		curl_setopt ( $curlHandler, CURLOPT_FOLLOWLOCATION, TRUE );
 		curl_setopt ( $curlHandler, CURLOPT_POST, 1 );
 		curl_setopt ( $curlHandler, CURLOPT_POSTFIELDS, createKeyString ( $post ) );
