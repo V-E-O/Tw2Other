@@ -2,7 +2,7 @@
 /**
  * @author cluries
  * @link http://cuies.com
- * @version 0.21
+ * @version 0.3
  */
 
 class Twitter {
@@ -104,29 +104,29 @@ class Twitter {
 		unset ( $json );
 		
 		$this->filter ( $result );
+		$this->filterKey ( $result );
 		
 		return array_reverse ( $result );
 	}
 	
-	/**
-	 * debug
-	 *
-	 */
+	
 	/*
 	public function debugFilter() {
 		$this->syncLevel = 3;
 		$content = array ();
-		$content [0] = 'RT@fdsafasd dfasdfsa';
+		$content [0] = '#t2oRT@fdsafasd dfasdfsa';
 		$content [1] = 'dfasdfasd';
-		$content [2] = '@fds dfasd';
+		$content [2] = '@fds #t2odfasd';
 		$content [3] = 'fddddddddda54545512121212';
 		$content [4] = 'RT @DFSD DFASDFAS';
-		$this->filter ( $content );
+		$this->filterKey ( $content );
 		
 		echo '<pre>';
 		print_r ( $content );
 		echo '</pre>';
-	}*/
+	}
+	*/
+	
 	
 	/**
 	 * Enter description here...
@@ -166,6 +166,28 @@ class Twitter {
 			}
 		
 		} while ( false );
+		
+		return $content;
+	}
+	
+	/**
+	 * 
+	 * @param unknown_type $content
+	 */
+	private function filterKey(& $content) {
+		
+		$key = '#t2o';
+		if (is_array ( $content )) {
+			foreach ( $content as $k => $v ) {
+				if (false !== strpos ( $v, $key )) {
+					unset ( $content [$k] );
+				}
+			}
+		} else {
+			if (false !== strpos ( $content, $key )) {
+				$this->noupdate ();
+			}
+		}
 		
 		return $content;
 	}
