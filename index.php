@@ -2,7 +2,7 @@
 /**
  * @author cluries
  * @link http://cuies.com
- * @version 0.71
+ * @version 0.73
  */
 
 define ( 'TWTO_VERSION', 0.61 );
