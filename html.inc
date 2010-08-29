@@ -14,13 +14,20 @@
       <h2>Tw2other</h2>
 
       <p>清除认证：<a href='./clearsessions.php'>clearing your session</a>.</p>
-
+	
       <p>
        如果有问题，可以联系Tw2other作者 :@<a href="http://twitter.com/cluries">cluries</a>
       </p>
       <p>
       	感谢twitter oauth lib的作者  @<a href='http://twitter.com/abraham'>abraham</a>
       </p>
+      <P>
+       	<a href="http://dev.twitter.com/apps/new">注册新的Application</a>
+      </P>
+      	<p>
+      	注意，在Twitter注册Application的时候，Application Type这一项要选中Browser <br />
+      	Application Type这一项选中Browser后，Callback URL这里面填写你自己tw2other里面callback.php的URL
+      	</p>
       <hr />
       <?php if (isset($menu)) { ?>
         <?php echo $menu; ?>

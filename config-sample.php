@@ -4,8 +4,11 @@ define ( 'INTERVAL', 50 );
 
 define('OAUTH_DIR','../../oauth');
 
+//注意，在Twitter注册Application的时候，Application Type这一项要选中Browser 
 define('CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A');
 define('CONSUMER_SECRET', 'NNJAppLCPA3UHxCwy2i2i7nzPM8qaddF5OsKyALTRHE');
+
+//Application Type这一项选中Browser后，Callback URL这里面填写你自己tw2other里面callback.php的URL
 define('OAUTH_CALLBACK', 'http://cuies.com/tw2other/callback.php');
 
 
