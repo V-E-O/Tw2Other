@@ -5,7 +5,7 @@
  * @version 0.73
  */
 
-define ( 'TWTO_VERSION', 0.8 );
+define ( 'TWTO_VERSION', 0.81 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 

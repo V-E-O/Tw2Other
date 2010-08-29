@@ -5,6 +5,11 @@
  */
 
 /* Load and clear sessions */
+
+if (file_exists('lock')) {
+	exit('Lock文件存在,请删除Tw2other所在路径下的lock文件后再试');
+}
+
 session_start ();
 session_destroy ();
 

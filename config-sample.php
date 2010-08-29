@@ -2,7 +2,7 @@
  
 define ( 'INTERVAL', 50 );
 
-define('OAUTH_DIR','../../oauth');
+define('OAUTH_DIR','../../oauth/');
 
 //注意，在Twitter注册Application的时候，Application Type这一项要选中Browser 
 define('CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A');

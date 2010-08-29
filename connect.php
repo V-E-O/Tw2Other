@@ -5,6 +5,10 @@
  * Check if consumer token is set and if so send user to get a request token.
  */
 
+if (file_exists('lock')) {
+	exit('Lock文件存在,请删除Tw2other所在路径下的lock文件后再试');
+}
+
 /**
  * Exit with an error message if the CONSUMER_KEY or CONSUMER_SECRET is not defined.
  */

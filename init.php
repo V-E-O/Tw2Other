@@ -8,10 +8,6 @@
 //define ( 'SOURCE', '<a href="http://cuies.com/">Tw2ohter</a>' );
 define ( 'SOURCE', 'Tw2ohter' );
 
-//Tw2other
-define ( 'CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A' );
-define ( 'CONSUMER_SECRET', 'NNJAppLCPA3UHxCwy2i2i7nzPM8qaddF5OsKyALTRHE' );
-
 function defaultExceptionHandler(TwtoException $e) {
 	echo $e->getMessage ();
 }
@@ -24,7 +20,16 @@ function duplicateHeader($curl, $header) {
 }
 
 function createKeyString($data) {
-	return http_build_query ( $data );
+	if (! is_array ( $data )) {
+		return "content={$data}";
+	}
+	
+	$string = '';
+	foreach ( $data as $k => $v ) {
+		$string .= "{$k}={$v}&";
+	}
+	
+	return substr ( $string, 0, - 1 );
 }
 
 function __autoload($className = '') {
@@ -45,21 +50,26 @@ function updateLastUpdateTime() {
 	@fclose ( $fileHandler );
 }
 
+function dirPs($dir) {
+	return substr ( $dir, - 1 ) == '/' ? $dir : $dir . '/';
+}
+
 function getOauth() {
-	if (file_exists ( OAUTH_DIR . 'tw2other.oauth' )) {
-		return file_get_contents ( OAUTH_DIR . 'tw2other.oauth' );
+	if (file_exists ( dirPs ( OAUTH_DIR ) . 'tw2other.oauth' )) {
+		return file_get_contents ( dirPs ( OAUTH_DIR ) . 'tw2other.oauth' );
 	}
 	return null;
 }
 
 function updateOauth($oauth) {
 	$oauth = serialize ( $oauth );
-	$fileHandler = @fopen ( OAUTH_DIR . 'tw2other.oauth', 'w+' );
+	$fileHandler = @fopen ( dirPs ( OAUTH_DIR ) . 'tw2other.oauth', 'w+' );
 	@fwrite ( $fileHandler, $oauth );
 	@fclose ( $fileHandler );
 }
 
 function check() {
+	
 	if (! file_exists ( 'config.php' )) {
 		echo "<h1>请先配置config.php</h1>";
 		exit ();
