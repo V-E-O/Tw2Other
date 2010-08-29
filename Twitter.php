@@ -76,6 +76,7 @@ class Twitter {
 	 *
 	 * @return string or array
 	 */
+	/*
 	public function getContent() {
 		//$json = file_get_contents ( $this->getTwitterAPI () );
 		
@@ -107,8 +108,39 @@ class Twitter {
 		$this->filterKey ( $result );
 		
 		return array_reverse ( $result );
-	}
+	}*/
 	
+	public function getContent() {
+		
+		include_once 'twitteroauth/OAuth.php';
+		include_once 'twitteroauth/twitteroauth.php';
+		
+		$access_token = getOauth ();
+		$access_token = unserialize ( $access_token );
+		
+		$connection = new TwitterOAuth ( CONSUMER_KEY, CONSUMER_SECRET, $access_token ['oauth_token'], $access_token ['oauth_token_secret'] );
+		
+		$parameter = $this->getParameters ();
+		$json = $connection->get ( 'statuses/user_timeline', $parameter );
+		
+		if (! isset ( $json [0] ['id'] )) {
+			$this->noupdate ();
+		}
+		
+		$this->writeTweetId ( $json [0] ['id'] );
+		$i = - 1;
+		$result = array ();
+		while ( isset ( $json [++ $i] ) ) {
+			$result [$i] = $json [$i] ['text'];
+		}
+		
+		unset ( $json );
+		
+		$this->filter ( $result );
+		$this->filterKey ( $result );
+		
+		return array_reverse ( $result );
+	}
 	
 	/*
 	public function debugFilter() {
@@ -126,7 +158,6 @@ class Twitter {
 		echo '</pre>';
 	}
 	*/
-	
 	
 	/**
 	 * Enter description here...
@@ -251,6 +282,18 @@ class Twitter {
 		}
 		
 		return $api;
+	}
+	
+	private function getParameters($count = 50) {
+		$parameters = array ();
+		$parameters ['count'] = $count;
+		
+		$since_id = $this->getStartTweetId ();
+		if (! empty ( $since_id )) {
+			$parameters ['since_id'] = $since_id;
+		}
+		
+		return $parameters;
 	}
 	
 	/**

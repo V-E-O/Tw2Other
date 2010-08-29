@@ -5,22 +5,20 @@
  * @version 0.73
  */
 
-define ( 'TWTO_VERSION', 0.61 );
+define ( 'TWTO_VERSION', 0.7 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
 include 'config.php';
 include 'init.php';
 
-is_continue ();
+check ();
 updateLastUpdateTime ();
 
 include 'Service.php';
 include 'Twitter.php';
 
-$twitter = new Twitter ( );
-$twitter->setApi ( $twitterApi );
-$twitter->setUser ( $twitterUser );
+$twitter = new Twitter ();
 $twitter->setSyncLevel ( $twitterSyncLevel );
 
 $content = $twitter->getContent ();
@@ -36,7 +34,7 @@ foreach ( $services as $k => $v ) {
 	}
 	
 	$service = ucfirst ( $k );
-	$service = new $service ( );
+	$service = new $service ();
 	$service->setUsername ( $v ['username'] );
 	$service->setPassword ( $v ['password'] );
 	$service->setContent ( $content );

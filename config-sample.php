@@ -1,14 +1,13 @@
 <?php
-if (! defined ( 'TWTO_VERSION' )) {
-	exit ();
-}
-
+ 
 define ( 'INTERVAL', 50 );
 
-$twitterApi = 'http://twitter.com/';
+define('OAUTH_DIR','../../oauth');
 
-//你的twitter用户名
-$twitterUser = '';
+define('CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A');
+define('CONSUMER_SECRET', 'NNJAppLCPA3UHxCwy2i2i7nzPM8qaddF5OsKyALTRHE');
+define('OAUTH_CALLBACK', 'http://cuies.com/tw2other/callback.php');
+
 
 /**
  * 0：不过滤
