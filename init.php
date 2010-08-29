@@ -87,5 +87,11 @@ function check() {
 		header ( 'Location:connect.php' );
 		exit ();
 	}
+	
+	$oauth = unserialize ( $oauth );
+	if (empty ( $oauth ['oauth_token'] ) || empty ( $oauth ['oauth_token_secret'] )) {
+		header ( 'Location:connect.php' );
+		exit ();
+	}
 }
 ?>
