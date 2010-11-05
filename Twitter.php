@@ -123,11 +123,11 @@ class Twitter {
 		$parameter = $this->getParameters ();
 		$json = $connection->get ( 'statuses/user_timeline', $parameter );
 		
-		if (! isset ( $json [0] ['id'] )) {
+		if (! isset ( $json [0] ['id_str'] )) {
 			$this->noupdate ();
 		}
 		
-		$this->writeTweetId ( $json [0] ['id'] );
+		$this->writeTweetId ( $json [0] ['id_str'] );
 		$i = - 1;
 		$result = array ();
 		while ( isset ( $json [++ $i] ) ) {
@@ -328,8 +328,8 @@ class Twitter {
 	 * 
 	 */
 	function __destruct() {
-		
-	//TODO - Insert your code here
+	
+		//TODO - Insert your code here
 	}
 }
 
