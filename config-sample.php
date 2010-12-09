@@ -42,6 +42,7 @@ $services = array ("sina" => array ('username' => 'your_email', 'password' => ''
 /*T9911就是9911.com*/ "t9911" => array ('username' => 'your_username', 'password' => '' ), 
 /*T163就是163.com*/ "t163" => array ('username' => 'your_email', 'password' => '' ),
 					"renren" => array ('username' => 'your_email', 'password' => '' ),
+					"fanfou" => array ('username' => 'your_email', 'password' => '' ),
 					 );
 
 ?>
