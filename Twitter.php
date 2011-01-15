@@ -287,7 +287,7 @@ class Twitter {
 	private function getParameters($count = 50) {
 		$parameters = array ();
 		$parameters ['count'] = $count;
-		
+		$parameters ['include_rts'] = true;
 		$since_id = $this->getStartTweetId ();
 		if (! empty ( $since_id )) {
 			$parameters ['since_id'] = $since_id;
