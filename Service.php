@@ -167,6 +167,7 @@ abstract class Service {
 		$curlOptions [CURLOPT_POST] = true;
 		$curlOptions [CURLOPT_POSTFIELDS] = createKeyString ( $this->_post_data );
 		$curlOptions [CURLOPT_RETURNTRANSFER] = true;
+		$curlOptions [CURLOPT_TIMEOUT] = 10;
 		
 		$curlHandler = curl_init ();
 		curl_setopt_array ( $curlHandler, $curlOptions );
