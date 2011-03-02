@@ -11,7 +11,7 @@ class Sina extends Service {
 		
 		$this->sendSource = false;
 		$this->updateUrl = 'http://api.t.sina.com.cn/statuses/update.xml';
-		$this->addPostData ( 'source', '3671151342' );
+		$this->addPostData ( 'source', SINA_APP_KEY );
 	}
 }
 
