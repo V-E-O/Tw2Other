@@ -36,10 +36,10 @@ class MBApiClient {
 	public function getTimeline($p) {
 		if (! isset ( $p ['name'] )) {
 			$url = 'http://open.t.qq.com/api/statuses/home_timeline?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT, 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'] );
+			$params = array ('format' => 'json', 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'] );
 		} else {
 			$url = 'http://open.t.qq.com/api/statuses/user_timeline?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT, 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'], 'name' => $p ['name'] );
+			$params = array ('format' => 'json', 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'], 'name' => $p ['name'] );
 		}
 		return $this->oauth->get ( $url, $params );
 	}
@@ -51,7 +51,7 @@ class MBApiClient {
 	 * *********************/
 	public function getPublic($p) {
 		$url = 'http://open.t.qq.com/api/statuses/public_timeline?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'pos' => $p ['p'], 'reqnum' => $p ['n'] );
+		$params = array ('format' => 'json', 'pos' => $p ['p'], 'reqnum' => $p ['n'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -65,7 +65,7 @@ class MBApiClient {
 	 **********************/
 	public function getMyTweet($p) {
 		$p ['type'] == 0 ? $url = 'http://open.t.qq.com/api/statuses/mentions_timeline?f=1' : $url = 'http://open.t.qq.com/api/statuses/broadcast_timeline?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'], 'lastid' => $p ['l'] );
+		$params = array ('format' => 'json', 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'pagetime' => $p ['t'], 'lastid' => $p ['l'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -78,7 +78,7 @@ class MBApiClient {
 	 **********************/
 	public function getTopic($p) {
 		$url = 'http://open.t.qq.com/api/statuses/ht_timeline?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'httext' => $p ['t'], 'pageinfo' => $p ['p'] );
+		$params = array ('format' => 'json', 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'httext' => $p ['t'], 'pageinfo' => $p ['p'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -88,7 +88,7 @@ class MBApiClient {
 	 **********************/
 	public function getOne($p) {
 		$url = 'http://open.t.qq.com/api/t/show?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'id' => $p ['id'] );
+		$params = array ('format' => 'json', 'id' => $p ['id'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -103,7 +103,7 @@ class MBApiClient {
 	 *@type: 1 发表 2 转播 3 回复 4 点评
 	 **********************/
 	public function postOne($p) {
-		$params = array ('format' => MB_RETURN_FORMAT, 'content' => $p ['c'], 'clientip' => $p ['ip'], 'jing' => $p ['j'], 'wei' => $p ['w'] );
+		$params = array ('format' => 'json', 'content' => $p ['c'], 'clientip' => $p ['ip'], 'jing' => $p ['j'], 'wei' => $p ['w'] );
 		switch ($p ['type']) {
 			case 2 :
 				$url = 'http://open.t.qq.com/api/t/re_add?f=1';
@@ -140,7 +140,7 @@ class MBApiClient {
 	 **********************/
 	public function delOne($p) {
 		$url = 'http://open.t.qq.com/api/t/del?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'id' => $p ['id'] );
+		$params = array ('format' => 'json', 'id' => $p ['id'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -155,7 +155,7 @@ class MBApiClient {
 	 **********************/
 	public function getReplay($p) {
 		$url = 'http://open.t.qq.com/api/t/re_list?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'rootid' => $p ['reid'], 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'flag' => $p ['flag'] );
+		$params = array ('format' => 'json', 'rootid' => $p ['reid'], 'pageflag' => $p ['f'], 'reqnum' => $p ['n'], 'flag' => $p ['flag'] );
 		if (isset ( $p ['t'] )) {
 			$params ['pagetime'] = $p ['t'];
 		}
@@ -172,10 +172,10 @@ class MBApiClient {
 	public function getUserInfo($p = false) {
 		if (! $p || ! $p ['n']) {
 			$url = 'http://open.t.qq.com/api/user/info?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT );
+			$params = array ('format' => 'json' );
 		} else {
 			$url = 'http://open.t.qq.com/api/user/other_info?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT, 'name' => $p ['n'] );
+			$params = array ('format' => 'json', 'name' => $p ['n'] );
 		}
 		return $this->oauth->get ( $url, $params );
 	}
@@ -195,7 +195,7 @@ class MBApiClient {
 	 **********************/
 	public function updateMyinfo($p) {
 		$url = 'http://open.t.qq.com/api/user/update?f=1';
-		$p ['format'] = MB_RETURN_FORMAT;
+		$p ['format'] = 'json';
 		return $this->oauth->post ( $url, $p );
 	}
 	
@@ -205,7 +205,7 @@ class MBApiClient {
 	 ******************/
 	public function updateUserHead($p) {
 		$url = 'http://open.t.qq.com/api/user/update_head?f=1';
-		$p ['format'] = MB_RETURN_FORMAT;
+		$p ['format'] = 'json';
 		return $this->oauth->post ( $url, $p, true );
 	}
 	
@@ -223,7 +223,7 @@ class MBApiClient {
 			} else {
 				$p ['type'] ? $url = 'http://open.t.qq.com/api/friends/user_idollist' : $url = 'http://open.t.qq.com/api/friends/user_fanslist';
 			}
-			$params = array ('format' => MB_RETURN_FORMAT, 'name' => $p ['n'], 'reqnum' => $p ['num'], 'startindex' => $p ['start'] );
+			$params = array ('format' => 'json', 'name' => $p ['n'], 'reqnum' => $p ['num'], 'startindex' => $p ['start'] );
 			return $this->oauth->get ( $url, $params );
 		} catch ( MBException $e ) {
 			$ret = array ("ret" => 0, "msg" => "ok", "data" => array ("timestamp" => 0, "hasnext" => 1, "info" => array () ) );
@@ -248,7 +248,7 @@ class MBApiClient {
 				$url = 'http://open.t.qq.com/api/friends/addspecail?f=1';
 				break;
 		}
-		$params = array ('format' => MB_RETURN_FORMAT, 'name' => $p ['n'] );
+		$params = array ('format' => 'json', 'name' => $p ['n'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -259,7 +259,7 @@ class MBApiClient {
 	 **********************/
 	public function checkFriend($p) {
 		$url = 'http://open.t.qq.com/api/friends/check?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'names' => $p ['n'], 'flag' => $p ['type'] );
+		$params = array ('format' => 'json', 'names' => $p ['n'], 'flag' => $p ['type'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -273,7 +273,7 @@ class MBApiClient {
 	 **********************/
 	public function postOneMail($p) {
 		$url = 'http://open.t.qq.com/api/private/add?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'content' => $p ['c'], 'clientip' => $p ['ip'], 'jing' => $p ['j'], 'wei' => $p ['w'], 'name' => $p ['n'] );
+		$params = array ('format' => 'json', 'content' => $p ['c'], 'clientip' => $p ['ip'], 'jing' => $p ['j'], 'wei' => $p ['w'], 'name' => $p ['n'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -283,7 +283,7 @@ class MBApiClient {
 	 **********************/
 	public function delOneMail($p) {
 		$url = 'http://open.t.qq.com/api/private/del?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'id' => $p ['id'] );
+		$params = array ('format' => 'json', 'id' => $p ['id'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -300,7 +300,7 @@ class MBApiClient {
 		} else {
 			$url = 'http://open.t.qq.com/api/private/send?f=1';
 		}
-		$params = array ('format' => MB_RETURN_FORMAT, 'pageflag' => $p ['f'], 'pagetime' => $p ['t'], 'reqnum' => $p ['n'] );
+		$params = array ('format' => 'json', 'pageflag' => $p ['f'], 'pagetime' => $p ['t'], 'reqnum' => $p ['n'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -327,7 +327,7 @@ class MBApiClient {
 				break;
 		}
 		
-		$params = array ('format' => MB_RETURN_FORMAT, 'keyword' => $p ['k'], 'pagesize' => $p ['n'], 'page' => $p ['p'] );
+		$params = array ('format' => 'json', 'keyword' => $p ['k'], 'pagesize' => $p ['n'], 'page' => $p ['p'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -342,7 +342,7 @@ class MBApiClient {
 		if ($p ['type'] < 1 || $p ['type'] > 3) {
 			$p ['type'] = 1;
 		}
-		$params = array ('format' => MB_RETURN_FORMAT, 'type' => $p ['type'], 'reqnum' => $p ['n'], 'pos' => $p ['pos'] );
+		$params = array ('format' => 'json', 'type' => $p ['type'], 'reqnum' => $p ['n'], 'pos' => $p ['pos'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -355,12 +355,12 @@ class MBApiClient {
 		$url = 'http://open.t.qq.com/api/info/update?f=1';
 		if (isset ( $p ['type'] )) {
 			if ($p ['op']) {
-				$params = array ('format' => MB_RETURN_FORMAT, 'op' => $p ['op'], 'type' => $p ['type'] );
+				$params = array ('format' => 'json', 'op' => $p ['op'], 'type' => $p ['type'] );
 			} else {
-				$params = array ('format' => MB_RETURN_FORMAT, 'op' => $p ['op'] );
+				$params = array ('format' => 'json', 'op' => $p ['op'] );
 			}
 		} else {
-			$params = array ('format' => MB_RETURN_FORMAT, 'op' => $p ['op'] );
+			$params = array ('format' => 'json', 'op' => $p ['op'] );
 		}
 		return $this->oauth->get ( $url, $params );
 	}
@@ -376,7 +376,7 @@ class MBApiClient {
 		} else {
 			$url = 'http://open.t.qq.com/api/fav/delt?f=1';
 		}
-		$params = array ('format' => MB_RETURN_FORMAT, 'id' => $p ['id'] );
+		$params = array ('format' => 'json', 'id' => $p ['id'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -391,7 +391,7 @@ class MBApiClient {
 		} else {
 			$url = 'http://open.t.qq.com/api/fav/delht?f=1';
 		}
-		$params = array ('format' => MB_RETURN_FORMAT, 'id' => $p ['id'] );
+		$params = array ('format' => 'json', 'id' => $p ['id'] );
 		return $this->oauth->post ( $url, $params );
 	}
 	
@@ -411,10 +411,10 @@ class MBApiClient {
 	public function getFav($p) {
 		if ($p ['type']) {
 			$url = 'http://open.t.qq.com/api/fav/list_ht?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT, 'reqnum' => $p ['n'], 'pageflag' => $p ['f'], 'pagetime' => $p ['t'], 'lastid' => $p ['lid'] );
+			$params = array ('format' => 'json', 'reqnum' => $p ['n'], 'pageflag' => $p ['f'], 'pagetime' => $p ['t'], 'lastid' => $p ['lid'] );
 		} else {
 			$url = 'http://open.t.qq.com/api/fav/list_t?f=1';
-			$params = array ('format' => MB_RETURN_FORMAT, 'reqnum' => $p ['n'], 'pageflag' => $p ['f'], 'pagetime' => $p ['t'] );
+			$params = array ('format' => 'json', 'reqnum' => $p ['n'], 'pageflag' => $p ['f'], 'pagetime' => $p ['t'] );
 		}
 		return $this->oauth->get ( $url, $params );
 	}
@@ -425,7 +425,7 @@ class MBApiClient {
 	 **********************/
 	public function getTopicId($p) {
 		$url = 'http://open.t.qq.com/api/ht/ids?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'httexts' => $p ['list'] );
+		$params = array ('format' => 'json', 'httexts' => $p ['list'] );
 		return $this->oauth->get ( $url, $params );
 	}
 	
@@ -435,7 +435,7 @@ class MBApiClient {
 	 **********************/
 	public function getTopicList($p) {
 		$url = 'http://open.t.qq.com/api/ht/info?f=1';
-		$params = array ('format' => MB_RETURN_FORMAT, 'ids' => $p ['list'] );
+		$params = array ('format' => 'json', 'ids' => $p ['list'] );
 		return $this->oauth->get ( $url, $params );
 	}
 }
