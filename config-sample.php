@@ -5,8 +5,8 @@ define ( 'INTERVAL', 50 );
 define ( 'OAUTH_DIR', '../../oauth/' );
 
 //注意，在Twitter注册Application的时候，Application Type这一项要选中Browser 
-define ( 'CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A' );
-define ( 'CONSUMER_SECRET', 'NNJAppLCPA3UHxCwy2i2i7nzPM8qaddF5OsKyALTRHE' );
+define ( 'CONSUMER_KEY', '' );
+define ( 'CONSUMER_SECRET', '' );
 
 //填写tw2other的url，注意目录的大小写 。
 define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
@@ -14,6 +14,8 @@ define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
 //填写为你自己申请的SINA API KEY
 define ( 'SINA_APP_KEY', '' );
 
+
+//这里可以不修改
 define ( 'QQ_API_KEY', 'e6fbbf16f6264aebbf3c090a83ba2931' );
 define ( 'QQ_API_SECRET', '99eae2a938d7dd70874a42d3751754b6' );
 
