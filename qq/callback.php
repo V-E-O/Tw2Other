@@ -15,7 +15,7 @@ function getQQOauthFile() {
 		return dirPs ( OAUTH_DIR ) . 'tw2other_qq.oauth';
 	}
 	
-	return '../' . $p;
+	return '../' . $p . 'tw2other_qq.oauth';
 }
 
 $o = new MBOpenTOAuth ( QQ_API_KEY, QQ_API_SECRET, $_SESSION ['keys'] ['oauth_token'], $_SESSION ['keys'] ['oauth_token_secret'] );
