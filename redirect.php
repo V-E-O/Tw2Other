@@ -1,5 +1,7 @@
 <?php
-
+function dirPs($dir) {
+	return substr ( $dir, - 1 ) == '/' ? $dir : $dir . '/';
+}
 /* Start session and load library. */
 session_start ();
 require_once 'twitteroauth/OAuth.php';
