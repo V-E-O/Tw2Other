@@ -10,12 +10,19 @@ function dirPs($dir) {
 }
 
 function getQQOauthFile() {
-	return dirPs ( OAUTH_DIR ) . 'tw2other_qq.oauth';
+	$p = dirPs ( OAUTH_DIR );
+	if (substr ( $p, 0, 3 ) != '../') {
+		return dirPs ( OAUTH_DIR ) . 'tw2other_qq.oauth';
+	}
+	
+	return '../' . $p;
 }
 
 $o = new MBOpenTOAuth ( QQ_API_KEY, QQ_API_SECRET, $_SESSION ['keys'] ['oauth_token'], $_SESSION ['keys'] ['oauth_token_secret'] );
 $last_key = $o->getAccessToken ( $_REQUEST ['oauth_verifier'] ); //获取ACCESSTOKEN
 if (! empty ( $last_key )) {
+	echo getQQOauthFile ();
+	echo '<br />';
 	$fileHandler = @fopen ( getQQOauthFile (), 'w+' );
 	@fwrite ( $fileHandler, serialize ( $last_key ) );
 	@fclose ( $fileHandler );
