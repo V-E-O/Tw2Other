@@ -54,6 +54,10 @@ function dirPs($dir) {
 	return substr ( $dir, - 1 ) == '/' ? $dir : $dir . '/';
 }
 
+function getQQOauthFile() {
+	return dirPs ( OAUTH_DIR ) . 'tw2other_qq.oauth';
+}
+
 function getOauth() {
 	if (file_exists ( dirPs ( OAUTH_DIR ) . 'tw2other.oauth' )) {
 		return file_get_contents ( dirPs ( OAUTH_DIR ) . 'tw2other.oauth' );

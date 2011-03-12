@@ -2,10 +2,10 @@
 /**
  * @author cluries
  * @link http://cuies.com
- * @version 0.73
+ * @version 0.9
  */
 
-define ( 'TWTO_VERSION', 0.81 );
+define ( 'TWTO_VERSION', 0.9 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
@@ -29,7 +29,7 @@ foreach ( $services as $k => $v ) {
 		continue;
 	}
 	
-	if (trim ( $v ['username'] ) == '' || trim ( $v ['password'] ) == '') {
+	if (empty ( $v ['oauth'] ) && (trim ( $v ['username'] ) == '' || trim ( $v ['password'] ) == '')) {
 		continue;
 	}
 	

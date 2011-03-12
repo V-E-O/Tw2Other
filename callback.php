@@ -7,8 +7,8 @@
 
 /* Start session and load lib */
 
-if (file_exists('lock')) {
-	exit('Lock文件存在,请删除Tw2other所在路径下的lock文件后再试');
+if (file_exists ( 'lock' )) {
+	exit ( 'Lock文件存在,请删除Tw2other所在路径下的lock文件后再试' );
 }
 
 session_start ();
@@ -41,7 +41,9 @@ if (200 == $connection->http_code) {
 	/* The user has been verified and the access tokens can be saved for future use */
 	$_SESSION ['status'] = 'verified';
 	updateOauth ( $access_token );
-	fopen ( 'lock', 'w+' );
+	$handle = @fopen ( 'lock', 'w+' );
+	@fwrite ( $handle, date ( "Y-m-d H:i:s" ) );
+	@fclose ( $handle );
 	header ( 'Location: ./index.php' );
 } else {
 	/* Save HTTP status for error dialog on connnect page.*/

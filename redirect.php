@@ -10,7 +10,7 @@ require_once ('config.php');
 $connection = new TwitterOAuth ( CONSUMER_KEY, CONSUMER_SECRET );
 
 /* Get temporary credentials. */
-$request_token = $connection->getRequestToken ( OAUTH_CALLBACK );
+$request_token = $connection->getRequestToken ( dirPs ( TW2OTHER_URL ) . 'callback.php' );
 
 /* Save temporary credentials to session. */
 $_SESSION ['oauth_token'] = $token = $request_token ['oauth_token'];

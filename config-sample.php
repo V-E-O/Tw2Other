@@ -8,11 +8,14 @@ define ( 'OAUTH_DIR', '../../oauth/' );
 define ( 'CONSUMER_KEY', '5xb2INFvAZHcLLz1iHQ2A' );
 define ( 'CONSUMER_SECRET', 'NNJAppLCPA3UHxCwy2i2i7nzPM8qaddF5OsKyALTRHE' );
 
-//Application Type这一项选中Browser后，Callback URL这里面填写你自己tw2other里面callback.php的URL
-define ( 'OAUTH_CALLBACK', 'http://cuies.com/tw2other/callback.php' );
+//填写tw2other的url，注意目录的大小写 。
+define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
 
 //填写为你自己申请的SINA API KEY
 define ( 'SINA_APP_KEY', '' );
+
+define ( 'QQ_API_KEY', 'e6fbbf16f6264aebbf3c090a83ba2931' );
+define ( 'QQ_API_SECRET', '99eae2a938d7dd70874a42d3751754b6' );
 
 /**
  * 0：不过滤
@@ -34,8 +37,17 @@ $follow5ApiKey = '';
 
 //username对应登录名
 //password对应登录密码
-$services = array ("sina" => array ('username' => 'your_email', 'password' => '' ), "digu" => array ('username' => 'your_username', 'password' => '' ), "zuosa" => array ('username' => 'your_username', 'password' => '' ), "follow5" => array ('username' => 'your_username', 'password' => '' ), "renjian" => array ('username' => 'your_username', 'password' => '' ), "douban" => array ('username' => 'your_email', 'password' => '' ), "xianguo" => array ('username' => 'your_email', 'password' => '' ),
+$services = array ("sina" => array ('username' => 'your_email', 'password' => '' ),
+			 "digu" => array ('username' => 'your_username', 'password' => '' ), 
+			 "zuosa" => array ('username' => 'your_username', 'password' => '' ),
+		 "follow5" => array ('username' => 'your_username', 'password' => '' ), 
+		 "renjian" => array ('username' => 'your_username', 'password' => '' ), 
+		 "douban" => array ('username' => 'your_email', 'password' => '' ), 
+		 "xianguo" => array ('username' => 'your_email', 'password' => '' ),
 /*T9911就是9911.com*/ "t9911" => array ('username' => 'your_username', 'password' => '' ), 
-/*T163就是163.com*/ "t163" => array ('username' => 'your_email', 'password' => '' ), "renren" => array ('username' => 'your_email', 'password' => '' ), "fanfou" => array ('username' => 'your_email', 'password' => '' ) );
+/*T163就是163.com*/ "t163" => array ('username' => 'your_email', 'password' => '' ),
+ "renren" => array ('username' => 'your_email', 'password' => '' ), 
+ "fanfou" => array ('username' => 'your_email', 'password' => '' ),
+	"qq"=>array('oauth'=>true) );
 
 ?>
