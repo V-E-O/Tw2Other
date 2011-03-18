@@ -4,15 +4,12 @@ include_once 'qq/opent.php';
 
 class Qq extends Service {
 	
-	const KEY = 'e6fbbf16f6264aebbf3c090a83ba2931';
-	const SECRET = '99eae2a938d7dd70874a42d3751754b6';
-	
 	private $_aouth = null;
 	
 	public function __construct() {
 		parent::__construct ();
 		$auth = $this->getQQAuth ();
-		$this->_aouth = new MBOpenTOAuth ( Qq::KEY, Qq::SECRET, $auth ['oauth_token'], $auth ['oauth_token_secret'] );
+		$this->_aouth = new MBOpenTOAuth ( QQ_API_KEY, QQ_API_SECRET, $auth ['oauth_token'], $auth ['oauth_token_secret'] );
 	}
 	
 	public function sendItem($content) {
