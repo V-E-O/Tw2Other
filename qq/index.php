@@ -12,7 +12,7 @@ require_once ('../config.php');
 require_once ('opent.php');
 
 $o = new MBOpenTOAuth ( QQ_API_KEY, QQ_API_SECRET );
-$keys = $o->getRequestToken ( dirPs ( TW2OTHER_URL ) . 'qq/callback.php' ); //这里填上你的回调URL
+$keys = $o->getRequestToken ( dirPs ( TW2OTHER_URL ) . 'qq/callback.php' );  
 $aurl = $o->getAuthorizeURL ( $keys ['oauth_token'], false, '' );
 $_SESSION ['keys'] = $keys;
 ?>
