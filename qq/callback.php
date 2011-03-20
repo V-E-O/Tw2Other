@@ -20,7 +20,7 @@ function getQQOauthFile() {
 
 $o = new MBOpenTOAuth ( QQ_API_KEY, QQ_API_SECRET, $_SESSION ['keys'] ['oauth_token'], $_SESSION ['keys'] ['oauth_token_secret'] );
 $last_key = $o->getAccessToken ( $_REQUEST ['oauth_verifier'] ); //获取ACCESSTOKEN
-if (! empty ( $last_key )) {
+if (! empty ( $last_key ['oauth_token'] ) && ! empty ( $last_key ['oauth_token_secret'] )) {
 	echo getQQOauthFile ();
 	echo '<br />';
 	$fileHandler = @fopen ( getQQOauthFile (), 'w+' );
@@ -33,6 +33,8 @@ if (! empty ( $last_key )) {
 	
 	echo '授权完成 ';
 } else {
+	print_r ( $last_key );
+	echo '<br />';
 	echo '授权失败';
 }
 ?>
