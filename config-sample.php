@@ -16,8 +16,8 @@ define ( 'SINA_APP_KEY', '' );
 
 
  
-define ( 'QQ_API_KEY', 'e6fbbf16f6264aebbf3c090a83ba2931' );
-define ( 'QQ_API_SECRET', '99eae2a938d7dd70874a42d3751754b6' );
+define ( 'QQ_API_KEY', '' );
+define ( 'QQ_API_SECRET', '' );
 
 /**
  * 0：不过滤
