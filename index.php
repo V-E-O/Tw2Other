@@ -9,6 +9,8 @@ define ( 'TWTO_VERSION', 0.9 );
 
 error_reporting ( E_ALL ^ E_NOTICE );
 
+date_default_timezone_set ( 'Etc/GMT-8' );
+
 include 'config.php';
 include 'init.php';
 
