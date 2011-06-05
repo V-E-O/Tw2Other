@@ -48,6 +48,9 @@ class SinaOauth {
 	}
 	
 	public function getAuthorizeURL($token, $back) {
+		if (empty ( $token )) {
+			echo '<strong>没鞥获取到TOKEN,以下操作可能会失败!</strong>';
+		}
 		if (is_array ( $token )) {
 			$token = $token ['oauth_token'];
 		}
