@@ -4,6 +4,9 @@ date_default_timezone_set ( 'Etc/GMT-8' );
 define ( 'INTERVAL', 50 );
 
 define ( 'OAUTH_DIR', '../../oauth/' );
+if (!file_exists(OAUTH_DIR)){
+	@mkdir(OAUTH_DIR,0777,true);
+}
 
 //注意，在Twitter注册Application的时候，Application Type这一项要选中Browser 
 define ( 'CONSUMER_KEY', '' );
@@ -13,8 +16,8 @@ define ( 'CONSUMER_SECRET', '' );
 define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
 
 //填写为你自己申请的SINA API KEY
-define ( 'SINA_APP_KEY', '' );
-
+define ( 'SINA_API_KEY', '' );
+define ( 'SINA_API_SECRET', '');
 
  
 define ( 'QQ_API_KEY', '' );
@@ -40,7 +43,7 @@ $follow5ApiKey = '';
 
 //username对应登录名
 //password对应登录密码
-$services = array ("sina" => array ('username' => 'your_email', 'password' => '' ),
+$services = array ("sina" => array('oauth'=>true),
 			 "digu" => array ('username' => 'your_username', 'password' => '' ), 
 			 "zuosa" => array ('username' => 'your_username', 'password' => '' ),
 		 "follow5" => array ('username' => 'your_username', 'password' => '' ), 
