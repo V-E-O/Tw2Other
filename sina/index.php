@@ -9,6 +9,13 @@ require_once ('../twitteroauth/OAuth.php');
 
 require_once '../config.php';
 
+if (!defined('SINA_API_KEY')) {
+	exit('请先填写SINA_API_KEY');
+}
+if (!defined('SINA_API_SECRET')) {
+	exit('请先填写SINA_API_SECRET');
+}
+
 include 'SinaOauth.php';
 session_start ();
 $callback = dirPs ( TW2OTHER_URL ) . 'sina/callback.php';
