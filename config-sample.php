@@ -16,6 +16,7 @@ define ( 'CONSUMER_SECRET', '' );
 define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
 
 //填写为你自己申请的SINA API KEY
+//请注意,以前这里是SINA_APP_KEY，现在是SINA_API_KEY
 define ( 'SINA_API_KEY', '' );
 define ( 'SINA_API_SECRET', '');
 

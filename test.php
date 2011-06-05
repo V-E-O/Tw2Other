@@ -13,5 +13,5 @@ if (! function_exists ( 'curl_init' )) {
 }
 
 
-echo '很好，可以运行！';
+echo '很好，服务器环境可以运行TW2OTHER！';
 ?>
