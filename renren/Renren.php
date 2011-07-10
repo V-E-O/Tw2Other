@@ -89,8 +89,7 @@ class Renren extends Service {
 	}
 	
 	protected function sendItem($content, $cookieFile, $url) {
-		$url = urldecode($url);
-		$content = urlencode ( $content );
+		$url = str_replace ( '&amp;', '&', urldecode ( $url ) );
 		$post = array ('position' => 4, 'sour' => 'home', 'status' => $content, 'update' => '更新' );
 		$curlHandler = curl_init ();
 		curl_setopt ( $curlHandler, CURLOPT_URL, $url );
@@ -99,7 +98,7 @@ class Renren extends Service {
 		curl_setopt ( $curlHandler, CURLOPT_POSTFIELDS, createKeyString ( $post ) );
 		curl_setopt ( $curlHandler, CURLOPT_COOKIEFILE, $cookieFile );
 		curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, true );
-		curl_exec ( $curlHandler );
+		echo curl_exec ( $curlHandler );
 		curl_close ( $curlHandler );
 	}
 }
