@@ -131,6 +131,7 @@ class Twitter {
 		$i = - 1;
 		$result = array ();
 		while ( isset ( $json [++ $i] ) ) {
+			$this->expandUrl ( $json [$i] );
 			$result [$i] = $json [$i] ['text'];
 		}
 		
@@ -140,6 +141,16 @@ class Twitter {
 		$this->filterKey ( $result );
 		
 		return array_reverse ( $result );
+	}
+	
+	private function expandUrl(&$tweet) {
+		if (empty ( $tweet ['entities'] ['urls'] )) {
+			return;
+		}
+		
+		foreach ( $tweet ['entities'] ['urls'] as $url ) {
+			$tweet ['text'] = str_replace ( $url ['url'], $url ['expanded_url'], $tweet ['text'] );
+		}
 	}
 	
 	/*
@@ -288,6 +299,7 @@ class Twitter {
 		$parameters = array ();
 		$parameters ['count'] = $count;
 		$parameters ['include_rts'] = true;
+		$parameters ['include_entities'] = true;
 		$since_id = $this->getStartTweetId ();
 		if (! empty ( $since_id )) {
 			$parameters ['since_id'] = $since_id;
