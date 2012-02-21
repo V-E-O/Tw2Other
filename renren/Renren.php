@@ -2,105 +2,68 @@
 /**
  * @author cluries
  * @link http://cuies.com
- * @version 0.2
+ * @version 0.4
  */
+
+include 'renren/RenrenOauth.php';
 
 class Renren extends Service {
 	
-	function __construct() {
+	protected $_so;
+
+	private $_auth;
+	
+	public function __construct() {
 		parent::__construct ();
+		$this->_auth = $this->getAuth ();
+		$this->_so = new RenrenOauth ();
 	}
 	
-	/**
-	 * Enter description here...
-	 *
-	 * @return unknown
-	 */
-	private function login() {
-		$cookieFile = tempnam ( Service::COOKIE_DIR, 'renren.cookie' );
-		
-		$loginInfo = array ();
-		
-		$loginInfo ['email'] = $this->username;
-		$loginInfo ['password'] = $this->password;
-		$loginInfo ['origURL'] = '/home.do';
-		$loginInfo ['login'] = '登录';
-		
-		$loginCurlHandler = curl_init ( "http://3g.renren.com/login.do?fx=0&autoLogin=true" );
-		curl_setopt ( $loginCurlHandler, CURLOPT_POST, 1 );
-		curl_setopt ( $loginCurlHandler, CURLOPT_REFERER, "http://wap.renren.com/" );
-		curl_setopt ( $loginCurlHandler, CURLOPT_POSTFIELDS, createKeyString ( $loginInfo ) );
-		curl_setopt ( $loginCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
-		curl_setopt ( $loginCurlHandler, CURLOPT_HEADER, 0 );
-		curl_setopt ( $loginCurlHandler, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt ( $loginCurlHandler, CURLOPT_TIMEOUT, 10 );
-		curl_setopt ( $loginCurlHandler, CURLOPT_RETURNTRANSFER, true );
-		$t = curl_exec ( $loginCurlHandler );
-		
-		curl_close ( $loginCurlHandler );
-		
-		$t = trim ( $t );
-		$r = array ();
-		preg_match ( '/<a href="(https?:\/\/.*)">/i', $t, $r );
-		
-		$result = array ();
-		$result ['cookieFile'] = $cookieFile;
-		$result ['url'] = trim ( $r [1] );
-		
-		return $result;
-	}
-	
-	private function goHome($cookieFile, $url) {
-		$indexCurlHandler = curl_init ( $url );
-		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEJAR, $cookieFile );
-		curl_setopt ( $indexCurlHandler, CURLOPT_COOKIEFILE, $cookieFile );
-		curl_setopt ( $indexCurlHandler, CURLOPT_RETURNTRANSFER, true );
-		$t = curl_exec ( $indexCurlHandler );
-		curl_close ( $indexCurlHandler );
-		unset ( $indexCurlHandler );
-		
-		$r = array ();
-		preg_match ( '/action="(https?:\/\/.*?)"/i', $t, $r );
-		
-		return $r [1];
-	}
-	
-	protected function sendContent() {
-		
-		if (empty ( $this->content )) {
-			return;
+	public function sendItem($content) {
+		$this->_post['access_token'] = $this->_auth['access_token'];
+		$this->_post['status'] = $content;
+		ksort($this->_post);
+		reset($this->_post);
+		$str = '';
+		foreach($this->_post AS $k=>$v){
+			$str .= $k.'='.$v;
 		}
-		
-		$result = $this->login ();
-		$cookieFile = $result ['cookieFile'];
-		$url = $this->goHome ( $cookieFile, $result ['url'] );
-		
-		if (is_array ( $this->content )) {
-			foreach ( $this->content as $value ) {
-				$this->sendItem ( $value, $cookieFile, $url );
-			}
-		} else {
-			$this->sendItem ( $this->content, $cookieFile, $url );
-		}
-		
-		if (file_exists ( $cookieFile )) {
-			unlink ( $cookieFile );
+
+		$str = md5($str.RENREN_API_SECRET);
+		$this->_post['sig'] = $str;
+
+		$url = 'http://api.renren.com/restserver.do';
+		echo $this->_so->httpRequest ( $url, $this->_post, 2 );
+		echo '<br />';
+		$token = $this->_so->refreshToken($this->_auth['refresh_token']);
+		if (! empty ( $token ['access_token'] ) && ! empty ( $token ['refresh_token'] )) {
+	
+			$fileHandler = @fopen ( dirPs ( OAUTH_DIR ) . 'tw2other_renren.oauth', 'w+' );
+			@fwrite ( $fileHandler, serialize ( $token ) );
+			@fclose ( $fileHandler );
+	
+			echo '授权更新';
 		}
 	}
 	
-	protected function sendItem($content, $cookieFile, $url) {
-		$url = str_replace ( '&amp;', '&', urldecode ( $url ) );
-		$post = array ('position' => 4, 'sour' => 'home', 'status' => $content, 'update' => '更新' );
-		$curlHandler = curl_init ();
-		curl_setopt ( $curlHandler, CURLOPT_URL, $url );
-		curl_setopt ( $curlHandler, CURLOPT_FOLLOWLOCATION, TRUE );
-		curl_setopt ( $curlHandler, CURLOPT_POST, 1 );
-		curl_setopt ( $curlHandler, CURLOPT_POSTFIELDS, createKeyString ( $post ) );
-		curl_setopt ( $curlHandler, CURLOPT_COOKIEFILE, $cookieFile );
-		curl_setopt ( $curlHandler, CURLOPT_RETURNTRANSFER, true );
-		echo curl_exec ( $curlHandler );
-		curl_close ( $curlHandler );
+	private function getAuth() {
+		$oauth = dirPs ( OAUTH_DIR ) . 'tw2other_renren.oauth';
+		if (file_exists ( $oauth )) {
+			$content = file_get_contents ( $oauth );
+			$auth = unserialize ( $content );
+			return $auth;
+		}
+		
+		return null;
 	}
+
+	private $_post	= array(
+				'access_token'	=>	'',
+				'format'	=>	'JSON',
+				'method'	=>	'status.set',
+				'status'	=>	'',
+				'v'		=>	'1.0'
+			);
 }
 
 ?>

@@ -20,6 +20,8 @@ define ( 'TW2OTHER_URL', 'http://cuies.com/tw2other/' );
 define ( 'SINA_API_KEY', '' );
 define ( 'SINA_API_SECRET', '');
 
+define ( 'RENREN_API_KEY', '' );
+define ( 'RENREN_API_SECRET', '');
  
 define ( 'QQ_API_KEY', '' );
 define ( 'QQ_API_SECRET', '' );
@@ -53,7 +55,7 @@ $services = array ("sina" => array('oauth'=>true),
 		 "xianguo" => array ('username' => 'your_email', 'password' => '' ),
 /*T9911就是9911.com*/ "t9911" => array ('username' => 'your_username', 'password' => '' ), 
 /*T163就是163.com*/ "t163" => array ('username' => 'your_email', 'password' => '' ),
- "renren" => array ('username' => 'your_email', 'password' => '' ), 
+ "renren" => array('oauth'=>true) ), 
  "fanfou" => array ('username' => 'your_email', 'password' => '' ),
 	"qq"=>array('oauth'=>true) );
 
