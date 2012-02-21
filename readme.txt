@@ -1,3 +1,8 @@
+One rough fork from Tw2other(http://code.google.com/p/tw2ohter/), with Renren OAuth Implemented.
+
+为 Tw2other 添加人人 OAuth 认证，代码仅草草修改。
+
+
 提醒：如果启用了同步到多个微博，请不要再在这几个微博间设置同步，不然会照成信息循环同步的问题。同时，请确保tw2other所在目录和所在目录之下的cookies文件夹具有可写权限。不然也有可能照成信息重复同步。
 
 升级版本的时候，请直接覆盖，不要删除以前目录下的tweet.id文件（非常重要），否者会导致重复同步的倒霉事情发生。
