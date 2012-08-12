@@ -70,9 +70,9 @@ class SinaOauth {
 		return $token;
 	}
 	
-	public function oAuthRequest($url, $method, $parameters) {
+	public function oAuthRequest($url, $method, $parameters, $https = false) {
 		
-		if (strrpos ( $url, 'http://' ) !== 0 && strrpos ( $url, 'http://' ) !== 0) {
+		if (strrpos ( $url, 'http://' ) !== 0 && strrpos ( $url, 'https://' ) !== 0) {
 			$url = "{$this->_host}{$url}.{$this->format}";
 		}
 		
@@ -81,13 +81,13 @@ class SinaOauth {
 		
 		switch ($method) {
 			case 'GET' :
-				return $this->httpRequest ( $request->to_url () );
+				return $this->httpRequest ( $request->to_url (), $https );
 			default :
-				return $this->httpRequest ( $request->get_normalized_http_url (), $request->to_postdata () );
+				return $this->httpRequest ( $request->get_normalized_http_url (), $https, $request->to_postdata () );
 		}
 	}
 	
-	private function httpRequest($url, $params = null, $decode = 0) {
+	private function httpRequest($url, $https, $params = null, $decode = 0) {
 		$curlHandle = curl_init ( $url );
 		if (! empty ( $params )) {
 			curl_setopt ( $curlHandle, CURLOPT_POST, true );
@@ -102,6 +102,10 @@ class SinaOauth {
 		curl_setopt ( $curlHandle, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt ( $curlHandle, CURLOPT_TIMEOUT, 15 );
 		curl_setopt ( $curlHandle, CURLOPT_ENCODING, 'UTF-8' );
+		if ( $https ) {
+			curl_setopt( $curlHandle, CURLOPT_SSL_VERIFYPEER, FALSE );
+			curl_setopt( $curlHandle, CURLOPT_SSL_VERIFYHOST,  2 );
+		}
 		
 		$response = curl_exec ( $curlHandle );
 		curl_close ( $curlHandle );
