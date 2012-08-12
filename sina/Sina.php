@@ -19,7 +19,7 @@ class Sina extends Service {
 	
 	public function sendItem($content) {
 		$params = array ('status' => $content );
-		$url = 'http://api.t.sina.com.cn/statuses/update.json';
+		$url = 'https://api.weibo.com/2/statuses/update.json';
 		echo $this->_so->oAuthRequest ( $url, 'POST', $params );
 	}
 	
